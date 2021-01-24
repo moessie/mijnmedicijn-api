@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-
 Route::group([
 
     'middleware' => 'api',
@@ -9,14 +7,9 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('login', [AuthController::class,'login']);
-    Route::post('logout', [AuthController::class,'logout']);
-    Route::post('refresh', [AuthController::class,'refresh']);
-    Route::post('me', [AuthController::class,'me']);
-
-
-    //medicine api
-    Route::apiResource('medicine', 'MedicineController');
-
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
 
 });

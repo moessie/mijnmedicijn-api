@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMedicinesTable extends Migration
+class CreateRemindersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateMedicinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('medicines', function (Blueprint $table) {
+        Schema::create('reminders', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->longText('description');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('medicine_id')->constrained()->onDelete('cascade');
+            $table->dateTime('remind_at');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateMedicinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('medicines');
+        Schema::dropIfExists('reminders');
     }
 }
