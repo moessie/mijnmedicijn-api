@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SignupRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -27,7 +28,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (! $token = auth()->attempt($credentials, ['exp' => Carbon::now()->addDays(30)->timestamp])) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
