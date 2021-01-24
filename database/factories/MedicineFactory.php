@@ -2,18 +2,19 @@
 
 namespace Database\Factories;
 
+use App\Models\Medicine;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class MedicineFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Medicine::class;
 
     /**
      * Define the model's default state.
@@ -22,12 +23,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+
+        $faker = \Faker\Factory::create();
+        $faker->addProvider(new \Bezhanov\Faker\Provider\Medicine($faker));
+
         return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
-            'password' => '12345678', // password
-            'remember_token' => Str::random(10),
+            'name' => $faker->medicine,
+            'description' => $this->faker->text,
         ];
     }
 }
