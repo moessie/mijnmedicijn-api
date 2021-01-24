@@ -12,15 +12,12 @@ class MedicineController extends Controller
 
     public function index()
     {
-        return MedicineResource::collection(Medicine::all()->paginate(25));
+        return MedicineResource::collection(Medicine::paginate(25));
     }
 
     public function store(StoreMedicineRequest $request)
     {
-        $medicine = Medicine::create([
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
+        $medicine = Medicine::create($request->all());
 
         return new MedicineResource($medicine);
     }
